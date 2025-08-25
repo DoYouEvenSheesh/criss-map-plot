@@ -1,4 +1,6 @@
 from setuptools import find_packages, setup
+import os
+from glob import glob
 
 package_name = 'criss-map-plot'
 
@@ -22,7 +24,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-                'plot_map = criss-map-plot.plot_map:main',
+                'plot_map = criss_map_plot.plot_map:main',
         ],
     },
 )

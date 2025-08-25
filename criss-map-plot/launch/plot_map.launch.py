@@ -1,9 +1,11 @@
 from launch import LaunchDescription
+from launch_ros.actions import Node
 
-def generate_launch_descripion():
+
+def generate_launch_description():
 
     plot_map_node = Node(
-        package="criss_plot_map",
+        package="criss-map-plot",
         executable="plot_map",
         output="screen",
     )

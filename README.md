@@ -1,5 +1,7 @@
 # A tool to plot the map and path of the robot headlessly!
-<img width="2523" height="2433" alt="image" src="https://github.com/user-attachments/assets/9b86d160-c188-4482-a436-49d8e039eef4" />
+<img width="1200" height="1200" alt="image" src="https://github.com/user-attachments/assets/9b86d160-c188-4482-a436-49d8e039eef4" />
+<img width="1200" height="1200" alt="image" src="https://github.com/user-attachments/assets/2cfc28af-abb4-4f12-bc71-e4171d766fb1" />
+
 
 ## Features: 
 - With this ros2 package, teams can plot the map and the robot path without using tool like rviz2 or Foxglove, completely headlessly on the VM. 

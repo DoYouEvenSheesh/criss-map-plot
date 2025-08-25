@@ -6,6 +6,7 @@
 - Based on `slam_toolbox` for mapping.
 - An image is saved to the directory `saved_maps` every 20 seconds and upon stopping the launch file a final map is also saved. This ensures that the map is saved in case the run fails in midway.
 - The maps are saved as standard jpegs, so they can be transferred locally very easily and modified as per usecase.
+- Optionally if the poses of the anamolies are saved in a file called `data.csv` template included below, the anamolies are marked in the map as blue points.
 
 ## Setup:
 
@@ -32,4 +33,10 @@ colcon build --symlink-install && source install/setup.bash
 ros2 launch criss-map-plot plot_map.launch.py
 ```
 
+## csv template
+```csv
+x_coordinate,y_coordinate
+x1,y1
+x2,y2
+```
 Now, every 20 seconds a new jpeg will be saved to `saved_maps` directory and upon performing Ctrl+C a final_map will be saved. 

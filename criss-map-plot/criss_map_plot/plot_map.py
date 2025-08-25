@@ -10,7 +10,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 import os
-
+import csv   
 
 class MapPlotter(Node):
     def __init__(self):
@@ -159,6 +159,36 @@ class MapPlotter(Node):
         except Exception as e:
             self.get_logger().error(f"Failed to save plot: {e}")
 
+    def plot_points_from_csv(self, csv_filepath):
+        self.get_logger().info(f"Attempting to read points from {csv_filepath}...")
+        if not os.path.exists(csv_filepath):
+            self.get_logger().warn(f"CSV file not found at {csv_filepath}. Skipping.")
+            return
+
+        x_coords, y_coords = [], []
+        try:
+            with open(csv_filepath, mode='r', newline='') as infile:
+                reader = csv.reader(infile)
+                next(reader)  
+                for row in reader:
+                    try:
+                        x = float(row[0])
+                        y = float(row[1])
+                        x_coords.append(x)
+                        y_coords.append(y)
+                    except (ValueError, IndexError):
+                        self.get_logger().warn(f"Could not parse row: {row}. Skipping.")
+        except Exception as e:
+            self.get_logger().error(f"Failed to read or parse CSV file: {e}")
+            return
+        
+        if x_coords:
+            self.get_logger().info(f"Plotting {len(x_coords)} points from CSV file.")
+            self.ax.scatter(x_coords, y_coords, c='blue', s=40, label='CSV Points', zorder=5, alpha=0.75)
+            self.ax.legend() 
+        else:
+            self.get_logger().info("No valid points found in CSV file.")
+
 
 def main(args=None):
     rclpy.init(args=args)
@@ -169,6 +199,10 @@ def main(args=None):
     except KeyboardInterrupt:
         map_plotter.get_logger().info("KeyboardInterrupt received, shutting down.")
     finally:
+        csv_file_to_read = "data.csv"
+        
+        map_plotter.plot_points_from_csv(csv_file_to_read)
+        
         final_filename = os.path.join(map_plotter.save_dir, "final_map.jpeg")
         map_plotter.get_logger().info("Saving final map...")
         map_plotter.save_plot(final_filename)
